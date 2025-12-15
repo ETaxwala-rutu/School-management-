@@ -1,7 +1,5 @@
-// lib/main.dart (updated)
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'screens/loading_screen.dart';
 import './screens/auth/login.dart';
 import './screens/dashboard/dashboard.dart';
 import './services/auth_service.dart';
@@ -18,18 +16,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login App',
+      title: 'City Public School',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         useMaterial3: true,
       ),
       home: const AuthWrapper(),
-      routes: {
-        '/login': (context) => const LoginScreen(),
-        '/dashboard': (context) => const DashboardScreen(),
-        '/loading': (context) => const LoadingScreen(),
-      },
       debugShowCheckedModeBanner: false,
     );
   }
@@ -54,6 +47,9 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
   Future<void> _checkAuthStatus() async {
     try {
+      // 2 second delay for smooth experience
+      await Future.delayed(Duration(seconds: 2));
+      
       final token = await AuthService.getToken();
       setState(() {
         _isLoggedIn = token != null && token.isNotEmpty;
@@ -70,7 +66,44 @@ class _AuthWrapperState extends State<AuthWrapper> {
   @override
   Widget build(BuildContext context) {
     if (_isCheckingAuth) {
-      return const LoadingScreen();
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Animated School Icon
+              Icon(
+                Icons.school,
+                size: 80,
+                color: Colors.blue.shade700,
+              ),
+              SizedBox(height: 20),
+              // Loading Animation
+              CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue.shade700),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'City Public School',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+              SizedBox(height: 5),
+              Text(
+                'Loading...',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     }
 
     return _isLoggedIn ? const DashboardScreen() : const LoginScreen();
