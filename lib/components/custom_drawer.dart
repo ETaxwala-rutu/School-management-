@@ -15,6 +15,7 @@ import 'attendance/dailyAttendance.dart';
 import 'attendance/approveleave.dart';
 import 'attendance/attendancebydate.dart';
 import 'Certificate/studentcertificate.dart';
+import 'Certificate/generatecertificate.dart';
 
 class CustomDrawer extends StatefulWidget {
   final Map<String, dynamic> userData;
@@ -399,6 +400,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const StudentCertificateScreen()),
+        );
+        break;
+        
+         case "/certificates/generatecertificate":
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const GenerateCertificateScreen()),
         );
         break;
         
