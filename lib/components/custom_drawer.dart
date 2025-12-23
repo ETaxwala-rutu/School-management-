@@ -399,9 +399,22 @@ class _CustomDrawerState extends State<CustomDrawer> {
         );
         break;
 
-     
+      case "/certificates/Studentcertificate":
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const StudentCertificateScreen()),
+        );
+        break;
 
-    
+      case "/certificates/generatecertificate":
+        // Pass empty list - actual data will come from your backend
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => GenerateCertificateScreen(),
+          ),
+        );
+        break;
 
       case "/certificates/generateidcard":
         // Pass empty list - actual data will come from your backend
@@ -428,7 +441,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
         break;
 
       // Handle other default routes
-     
+      case "/dashboard":
+      case "/dashboard/notifications":
+      case "/academics/dashboard":
+      case "/alumni/AllAlumni":
+      case "/student/profile":
+      case "/student/guardian":
+      case "/exams/list":
+      case "/exams/results":
         // These are placeholder routes for future implementation
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
