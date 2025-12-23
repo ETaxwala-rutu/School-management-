@@ -16,6 +16,7 @@ import 'attendance/approveleave.dart';
 import 'attendance/attendancebydate.dart';
 import 'Certificate/studentcertificate.dart';
 import 'Certificate/generatecertificate.dart';
+import 'Certificate/generateidcard.dart';
 
 class CustomDrawer extends StatefulWidget {
   final Map<String, dynamic> userData;
@@ -52,7 +53,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     "Alumni": [
       {"name": "Directory", "route": "/alumni/ManageAlumni"},
       {"name": "Events", "route": "/alumni/events"},
-      {"name": "AllEvents", "route": "/alumni/AllAlumni"},
+      {"name": "All Events", "route": "/alumni/AllAlumni"},
     ],
     "Attendance": [
       {"name": "Daily Attendance", "route": "/attendance/daily"},
@@ -62,11 +63,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
     "Certificates": [
       {"name": "Student Certificate", "route": "/certificates/Studentcertificate"},
       {"name": "Generate Certificate", "route": "/certificates/generatecertificate"},
-      {"name": "Student ID Cart", "route": "/certificates/Studentcertificate"},
-      {"name": "Generate Staff ID Card", "route": "/certificates/generatecertificate"},
-      {"name": "Staff ID Cart", "route": "/certificates/Studentcertificate"},
-      {"name": "Generate ID Card", "route": "/certificates/generatecertificate"},
-
+      {"name": "Student ID Card", "route": "/certificates/Studentidcard"},
+      {"name": "Generate Staff ID Card", "route": "/certificates/generatestaffidcard"},
+      {"name": "Staff ID Card", "route": "/certificates/staffidcard"},
+      {"name": "Generate ID Card", "route": "/certificates/generateidcard"},
     ],
     "Student Information": [
       {"name": "Profile", "route": "/student/profile"},
@@ -307,111 +307,138 @@ class _CustomDrawerState extends State<CustomDrawer> {
   void _navigateToScreen(BuildContext context, String route, String screenName) {
     Navigator.pop(context);
 
-     switch (route) {
-       case "/academics/classtimetable":
+    switch (route) {
+      case "/academics/classtimetable":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const ClassTimetableScreen()),
         );
-        break;  
+        break;
 
-        case "/academics/teacherstimetable":
+      case "/academics/teacherstimetable":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const TeacherTimeTable()),
         );
         break;
 
-        case "/academics/assignclassteacher":
+      case "/academics/assignclassteacher":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const AssignClassTeacherScreen()),
         );
         break;
 
-        case "/academics/promotestudents":
+      case "/academics/promotestudents":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const PromoteStudentScreen()),
         );
         break;
-        case "/academics/subjectgroup":
+
+      case "/academics/subjectgroup":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const SubjectGroupScreen()),
         );
         break;
-         
-        case "/academics/Subjects":
+
+      case "/academics/Subjects":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const SubjectScreen()),
         );
         break;
-         case "/academics/class":
+
+      case "/academics/class":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const AddClassScreen()),
         );
         break;
 
-       case "/academics/section": 
-       Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const SectionScreen()),
-       );
+      case "/academics/section":
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const SectionScreen()),
+        );
+        break;
 
-       break;
-        case "/alumni/events":
+      case "/alumni/events":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const EventsScreen()),
         );
         break;
 
-       case "/alumni/ManageAlumni":
+      case "/alumni/ManageAlumni":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const ManageAlumniScreen()),
         );
         break;
-        
-        case "/attendance/daily":
+
+      case "/attendance/daily":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const DailyAttendanceScreen()),
         );
         break;
 
-         case "/attendance/ApproveLeave":
+      case "/attendance/ApproveLeave":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const ApproveLeaveScreen()),
         );
         break;
-         
-         case "/attendance/AttendanceByDate":
+
+      case "/attendance/AttendanceByDate":
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const AttendanceByDateScreen()),
         );
         break;
-         case "/certificates/Studentcertificate":
+
+     
+
+    
+
+      case "/certificates/generateidcard":
+        // Pass empty list - actual data will come from your backend
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const StudentCertificateScreen()),
+          MaterialPageRoute(
+            builder: (context) => GenerateIDCardScreen(
+              selectedStudents: [], // Empty list - will be populated dynamically
+            ),
+          ),
         );
         break;
-        
-         case "/certificates/generatecertificate":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const GenerateCertificateScreen()),
+
+      case "/certificates/Studentidcard":
+      case "/certificates/generatestaffidcard":
+      case "/certificates/staffidcard":
+        // These screens don't exist yet - you can create them later
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('$screenName - Screen under development'),
+            duration: const Duration(seconds: 2),
+          ),
         );
         break;
-        
-  
-       default:
+
+      // Handle other default routes
+     
+        // These are placeholder routes for future implementation
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('$screenName feature coming soon'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+        break;
+
+      default:
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Navigating to: $screenName'),
